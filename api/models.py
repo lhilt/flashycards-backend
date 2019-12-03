@@ -11,6 +11,9 @@ class Deck(models.Model):
         related_name="decks"
     )
 
+    def __str__(self):
+        return self.name
+
 
 class Card(models.Model):
     front = models.TextField()
