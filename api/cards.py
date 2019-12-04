@@ -1,13 +1,19 @@
 import json
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
+from django.contrib.auth.models import User
 
-from .models import Card
+from .models import Card, Deck
+from .forms import CardCreate
 
 # Create your views here.
 ## controllers for CARDS
+
+def testing(request):
+    return render(request, 'testing.html')
+
 
 @require_http_methods(['GET'])
 def list_cards(request, user_pk, deck_pk):
@@ -18,9 +24,14 @@ def list_cards(request, user_pk, deck_pk):
 
 @require_http_methods(['POST'])
 def create_card(request, user_pk, deck_pk):
-    new_card_info = json.loads(request.body)
-    card = Card.objects.create(new_card_info)
-    return JsonResponse({}, status=201)
+    form = CardCreate(request.POST)
+    if form.is_valid():
+        new_card_info = form.cleaned_data
+        card = Card.objects.create(
+            **new_card_info,
+            deck=Deck.objects.get(pk=deck_pk)
+        )
+        return JsonResponse({}, status=201)
 
 
 @require_http_methods(['PUT'])
