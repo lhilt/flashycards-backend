@@ -25,6 +25,7 @@ def list_cards(request, user_pk, deck_pk):
 @require_http_methods(['POST'])
 def create_card(request, user_pk, deck_pk):
     form = CardCreate(request.POST)
+    # form = CardCreate(json.loads(request.body)) # for real forms
     if form.is_valid():
         new_card_info = form.cleaned_data
         card = Card.objects.create(
