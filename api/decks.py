@@ -12,9 +12,9 @@ from .models import Deck
 ## controllers for DECKS
 
 @require_http_methods(['GET'])
-# @login_required
-def list_decks(request, user_pk):
-    decks = Deck.objects.filter(user=user_pk)
+@login_required
+def list_decks(request):
+    decks = Deck.objects.filter(user=request.user)
     response = {'decks': list(decks.values())}
     return JsonResponse(response, status=200)
 
