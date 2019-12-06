@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.models import User
+from django.forms.models import model_to_dict
 
 from .models import Card, Deck
 from .forms import CardCreate
@@ -31,7 +32,7 @@ def create_card(request, user_pk, deck_pk):
             **new_card_info,
             deck=Deck.objects.get(pk=deck_pk)
         )
-        res = {'card': new_card_info}
+        res = {'card': model_to_dict(card)}
         return JsonResponse(res, status=201)
 
 

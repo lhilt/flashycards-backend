@@ -13,6 +13,7 @@ def sendToken(request):
 
 
 @require_http_methods(['POST'])
+@csrf_exempt
 def signup(request):
     new_user_info = json.loads(request.body)
     username = new_user_info['username']
@@ -39,6 +40,7 @@ def signup(request):
 
 
 @require_http_methods(['POST'])
+@csrf_exempt
 def login(request):
     user_info = json.loads(request.body)
     username = user_info['username']
