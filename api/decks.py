@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
+from django.contrib.auth.models import User
 
 from .models import Deck
 
@@ -11,7 +12,7 @@ from .models import Deck
 ## controllers for DECKS
 
 @require_http_methods(['GET'])
-@login_required
+# @login_required
 def list_decks(request, user_pk):
     decks = Deck.objects.filter(user=user_pk)
     response = {'decks': list(decks.values())}
@@ -21,8 +22,11 @@ def list_decks(request, user_pk):
 @require_http_methods(['POST'])
 def create_deck(request, user_pk):
     new_deck_info = json.loads(request.body)
-    deck = Deck.objects.create(new_deck_info)
-    return JsonResponse({}, status=201)
+    deck = Deck.objects.create(
+        **new_deck_info,
+        user=User.objects.get(pk=user_pk)
+    )
+    return JsonResponse({'deck': new_deck_info}, status=201)
 
 
 @require_http_methods(['PUT'])

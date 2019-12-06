@@ -41,7 +41,7 @@ def edit_card(request, user_pk, deck_pk, card_pk):
     new_info = json.loads(request.body)
 
     Card.objects.filter(pk=card_pk).update(**new_info)
-    return JsonResponse(new_info, status=200)
+    return JsonResponse({'card': new_info}, status=200)
 
 
 @require_http_methods(['DELETE'])
