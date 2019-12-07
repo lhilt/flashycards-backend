@@ -12,5 +12,5 @@ urlpatterns = [
     path('decks', decks.list_decks),
     path('decks/new', decks.create_deck),
     path('decks/<int:deck_pk>/edit', decks.edit_deck),
-    path('decks/<int:deck_pk>', decks.delete_deck),
+    path('decks/<int:deck_pk>/delete', decks.delete_deck),
 ]
