@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '@0y6&@pmw(0($4=96*xu^kxz&&5%owr(46urw)&ow-n)x56n4h'
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -58,7 +58,7 @@ MIDDLEWARE = [
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
     'http://192.168.1.7:3000',
-    os.environ('REACT_APP_URL'),
+    os.environ['REACT_APP_URL'],
     # 'https://flashr-app.herokuapp.com/',
 ]
 
