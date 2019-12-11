@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import django_heroku
+from boto.s3.connection import S3Connection
+s3 = S3Connection(os.environ['S3_KEY'], os.environ['S3_SECRET'])
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -57,7 +60,8 @@ MIDDLEWARE = [
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
     'http://192.168.1.7:3000',
-    'https://flashr-app.herokuapp.com/',
+    os.environ('REACT_APP_URL'),
+    # 'https://flashr-app.herokuapp.com/',
 ]
 
 CORS_ALLOW_CREDENTIALS = True
