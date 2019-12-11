@@ -27,7 +27,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['flashycards-app.herokuapp.com']
+ALLOWED_HOSTS = ['app.flashycards.lindseyhiltner.com']
 
 
 # Application definition
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -54,7 +55,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-SESSION_COOKIE_SAMESITE = None
+CORS_ORIGIN_WHITELIST = [
+    os.environ['REACT_APP_URL'],
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
+CSRF_COOKIE_DOMAIN = "flashycards.lindseyhiltner.com"
 
 ROOT_URLCONF = 'backend.urls'
 
